@@ -1,0 +1,29 @@
+#Print the number of zeroes in array n
+
+.data
+
+n: .word 4 #length of array
+a: .word 6, 5, 0, 8 #actual array
+
+.text
+
+lw t0, n #array length
+la t1, a #take address of first elem of the array
+li a0, 0 #init a counter
+
+ciclo:
+
+lw t2, 0(t1) #load content of array
+bne t2, zero, niente #check if = 0
+
+addi a0, a0, 1 #increment counter
+
+niente:
+addi t1, t1, 4 #increment address array
+addi t0, t0, -1 #decrement length of array
+bne t0, zero, ciclo #check if len(array) == 0
+
+li a7, 1 #print integer
+ecall
+li a7, 10 #exit
+ecall

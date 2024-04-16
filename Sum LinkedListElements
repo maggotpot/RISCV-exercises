@@ -1,0 +1,25 @@
+#Sum elements of a linked list
+
+.data
+
+lista: .word n01 #head of linked list
+n01: .word 6, n02
+n04: .word 5, 0
+n02: .word -2, n03
+n03: .word 0, n04
+
+.text
+
+li a0, 0 #counter
+lw t0, lista
+
+ciclo:
+
+lw t1, 0(t0) #load information of node 1
+add a0, a0, t1 #increment counter with list element
+lw t0, 4(t0) #load address of next node
+bne t0, zero, ciclo #if address != 0, means list didn't end
+li a7, 1 #print int
+ecall
+li a7, 10 #exit
+ecall

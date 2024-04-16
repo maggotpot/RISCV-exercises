@@ -1,0 +1,28 @@
+#Print the length of the list
+#NOTE: when the next address of a node is -, it means that the list ended
+
+.data
+
+lista: .word n1
+n1: .word 1, 0
+
+.text
+
+la t0, n1 #load address of the head (addr. 1)
+li a0, 0 #init counter
+
+ciclo:
+bnez t0, contatore #if address != 0, jump to label contatore
+beqz t0, uscita #if address == 0, jump to label uscita
+
+contatore:
+addi a0, a0, 1 #increment counter
+addi t0, t0, 4 #increment the pointer
+lw t0, (t0) #load addr of the pointer
+beq zero, zero, ciclo #always true condition, repeat the loop
+
+uscita:
+li a7, 1 #print int
+ecall
+li a7, 10
+ecall

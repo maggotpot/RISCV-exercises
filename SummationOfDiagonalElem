@@ -1,0 +1,28 @@
+#Given a two-dimensional array x of n rows and n columns, print the trace:
+# tr(x) = Summation (n, l =1) (x)il (sum up n-s on the diagonal)
+
+.data
+
+n: .word 3
+x: .word 5, 0, 7
+   .word 2, -1, 0
+   .word 3, 3, -1
+   
+.text
+
+la s0, x
+lw s1, n
+slli s2, s1, 2
+addi s2, s2, 4
+li a0, 0
+
+ciclo:
+lw t0, 0(s0)
+add a0, a0, t0 #move into a0 the contents of t0
+add s0, s0, s2
+addi s1, s1, -1 #decrement length of array
+bne s1, zero, ciclo #if s1 != 0, jump to label ciclo
+li a7, 1
+ecall
+li a7, 10
+ecall

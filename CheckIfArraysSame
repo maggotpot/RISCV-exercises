@@ -1,0 +1,38 @@
+#We have two arrays in the data segment: print 1 if they have the same elements in the same order
+
+.data
+
+n: .word 5
+x: .word 5, -2, 0, 17, 5
+m: .word 5
+y: .word 5, -2, 0, 17, 5
+
+.text
+
+la s0, x #load address of array
+lw s1, n #load array length
+la s2, y
+lw s3, m
+li a0, 0 #initialise counter
+bne s1, s3, fine #if the length of the two arrays is different, jumpn to 'fine'
+li a0, 1 #increment counter so we can print 1 if the conditions are met
+
+ciclo:
+lw t0, 0(s0) #load in t0 the first element of the x array
+lw t1, 0(s2) #load in t1 the first element of the y array
+beq t0, t1, vabene #check if the first elements in x and y arrays are the same
+li a0, 0 #if the branch condition isn't met, we print 0, since the two arrays don't coincide
+beq zero, zero, fine
+
+vabene:
+addi s0, s0, 4 #move to the second element of x array
+addi s2, s2, 4 #move to the second element of the y array
+addi s1, s1, -1 #decrement x array length
+addi s3, s3, -1 #decrement y array length
+bne s1, zero, ciclo
+
+fine:
+li a7, 1
+ecall
+li a7, 10
+ecall

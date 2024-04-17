@@ -1,0 +1,26 @@
+#Given a 2 dim array x of n rows and n columns, print the sum of the elements
+
+.data
+
+n: .word 3
+x: .word 5, 0, 7
+   .word 2, -1, 0
+   .word 3, 3, -1
+   
+.text
+
+la s0, x #load address of array
+lw s1, n
+li a0, 0 #initialise counter
+mul s2, s1, s1 #create in s2 the matrix 3x3
+
+ciclo:
+lw t0, 0(s0) #load in t0 the contents of s0
+add a0, a0, t0 #add in a0 the content of t0
+addi s0, s0, 4 #move to second line of array
+addi s2, s2, -1 #decrement matrix size
+bne s2, zero, ciclo
+li a7, 1
+ecall
+li a7, 10
+ecall
